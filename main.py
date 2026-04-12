@@ -1,5 +1,25 @@
+from Transformation import Transformation
 import pandas as pd
+
+pd.set_option('display.max_columns', None)  
+pd.set_option('display.width', 150)    
 
 df = pd.read_csv('data/sleep_mobile_stress_dataset_15000.csv')
 print(df.head())
+print(df.info())
 
+# Preprocessing 
+trans = Transformation(df)
+
+trans.drop_na()
+trans.drop_rows('gender', 'other')
+trans.cat_to_num('gender', 'Male', 'Female')
+
+print(df['occupation'].unique())
+trans.one_hot_encoding('occupation')
+
+df = trans.data
+
+print("\nPreprocessed df:")
+print(df.head())
+print(df.info())
