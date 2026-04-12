@@ -4,19 +4,18 @@ class Transformation:
     def __init__(self, data):
         self.data = data
 
-    
     def drop_na(self):
         self.data = self.data.dropna()
 
+    def drop_columns(self, columns):
+        self.data = self.data.drop(columns = columns)
 
     def drop_rows(self, column, value):
         self.data = self.data[self.data[column] != value]
 
-
     def cat_to_num(self, column, x1, x2):
         self.data[column] = self.data[column].map({x1: 0, x2: 1})
-
-
+        
     def one_hot_encoding(self, column):
         self.data = pd.get_dummies(self.data, columns = [column], prefix = column)
 

@@ -11,6 +11,7 @@ print(df.info())
 # Preprocessing 
 trans = Transformation(df)
 
+trans.drop_columns(['user_id'])
 trans.drop_na()
 trans.drop_rows('gender', 'other')
 trans.cat_to_num('gender', 'Male', 'Female')
