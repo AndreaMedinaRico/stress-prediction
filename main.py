@@ -1,4 +1,5 @@
 from Transformation import Transformation
+from Visualization import Visualization
 import pandas as pd
 
 pd.set_option('display.max_columns', None)  
@@ -12,7 +13,6 @@ print(df.info())
 trans = Transformation(df)
 
 trans.drop_columns(['user_id'])
-trans.drop_na()
 trans.drop_rows('gender', 'other')
 trans.cat_to_num('gender', 'Male', 'Female')
 
@@ -24,3 +24,8 @@ df = trans.data
 print("\nPreprocessed df:")
 print(df.head())
 print(df.info())
+
+# Visualization
+vis = Visualization()
+vis.correlation_matrix(df)
+vis.histogram(df, 'stress_level')

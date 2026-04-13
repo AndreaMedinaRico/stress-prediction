@@ -15,10 +15,14 @@ class Transformation:
 
     def cat_to_num(self, column, x1, x2):
         self.data[column] = self.data[column].map({x1: 0, x2: 1})
-        
+
     def one_hot_encoding(self, column):
         self.data = pd.get_dummies(self.data, columns = [column], prefix = column)
 
         for col in self.data.columns:
             if self.data[col].dtype == 'bool':
                 self.data[col] = self.data[col].astype(float)
+
+    def minutes_to_hours(self, columns):
+        for col in columns:
+            self.data[col] = self.data[col] / 60
