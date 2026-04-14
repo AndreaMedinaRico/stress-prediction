@@ -1,7 +1,14 @@
+'''
+File: main_transformation.py
+Author: Andrea Medina
+Description: This file performs data transformation neccesary to 
+    prepare the data for being an input to the model.
+'''
 from Transformation import Transformation
 from Visualization import Visualization
 import pandas as pd
 
+# Console display adjustments
 pd.set_option('display.max_columns', None)  
 pd.set_option('display.width', 150)    
 
@@ -19,6 +26,8 @@ trans.cat_to_num('gender', 'Male', 'Female')
 print(df['occupation'].unique())
 trans.one_hot_encoding('occupation')
 
+trans.minutes_to_hours(['phone_usage_before_sleep_minutes', 'physical_activity_minutes'])
+
 df = trans.data
 
 print("\nPreprocessed df:")
@@ -27,5 +36,8 @@ print(df.info())
 
 # Visualization
 vis = Visualization()
-vis.correlation_matrix(df)
-vis.histogram(df, 'stress_level')
+# vis.correlation_matrix(df)
+numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
+
+for col in numeric_cols:
+    vis.histogram(df, col)
