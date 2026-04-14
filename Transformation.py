@@ -16,8 +16,9 @@ class Transformation:
     def cat_to_num(self, column, x1, x2):
         self.data[column] = self.data[column].map({x1: 0, x2: 1})
 
-    def one_hot_encoding(self, column):
+    def one_hot_encoding(self, column, col_to_drop):
         self.data = pd.get_dummies(self.data, columns = [column], prefix = column)
+        self.data = self.data.drop(columns = [f"{column}_{col_to_drop}"])
 
         for col in self.data.columns:
             if self.data[col].dtype == 'bool':

@@ -24,7 +24,7 @@ trans.drop_rows('gender', 'other')
 trans.cat_to_num('gender', 'Male', 'Female')
 
 print(df['occupation'].unique())
-trans.one_hot_encoding('occupation')
+trans.one_hot_encoding('occupation', 'Designer')
 
 trans.minutes_to_hours(['phone_usage_before_sleep_minutes', 'physical_activity_minutes'])
 
