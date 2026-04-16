@@ -1,5 +1,5 @@
 '''
-File: main_transformation.py
+File: preprocessing.py
 Author: Andrea Medina
 Description: This file performs data transformation neccesary to 
     prepare the data for being an input to the model.
