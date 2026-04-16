@@ -17,13 +17,13 @@ class Visualization:
         corr_matrix = data.corr()
         plt.figure(figsize = (10, 8))
         sns.heatmap(corr_matrix, annot = True, cmap = 'coolwarm', fmt = ".2f")
-        plt.title('Matriz de correlación')
+        plt.title('Correelation Matrix')
         plt.show()
 
     def histogram(self, data, col):
         plt.figure(figsize=(10, 6))
         sns.histplot(data[col], bins=30, kde=True)
-        plt.title(f'Histograma de {col}')
+        plt.title(f'{col} histogram')
         plt.xlabel(col)
-        plt.ylabel('Frecuencia')
+        plt.ylabel('Frecuency')
         plt.show()
