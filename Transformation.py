@@ -27,3 +27,6 @@ class Transformation:
     def minutes_to_hours(self, columns):
         for col in columns:
             self.data[col] = self.data[col] / 60
+
+    def rename_columns(self, columns_dict):
+        self.data = self.data.rename(columns = columns_dict)
