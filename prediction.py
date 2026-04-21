@@ -58,10 +58,6 @@ def preprocess_input(user_data):
         8: "Researcher"
     }
 
-    COLUMNS_ORDER = [
-
-    ]
-
     # One-hot encoding for occupation
     trans.one_hot_encoding_map('occupation', OCCUPATION_MAP, 'Designer')
 
@@ -73,7 +69,7 @@ def preprocess_input(user_data):
     })
 
     # Ensure final dataframe has same columns as training data
-    trans.ensure_same_columns()
+    trans.ensure_same_columns(features)
 
     # Normalize data
     trans.normalize(scaler)
@@ -87,5 +83,5 @@ preprocessed_data = preprocess_input(user_data)
 
 prediction = model.predict(preprocessed_data)
 
-stress_level = np.argmax(prediction)
+stress_level = prediction[0][0]
 print(f"\nPredicted stress level: {stress_level:.2f}")
