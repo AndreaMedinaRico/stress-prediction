@@ -33,7 +33,10 @@ class Transformation:
 
     def one_hot_encoding_map(self, column, mapping, col_to_drop):
         self.data[column] = self.data[column].map(mapping)
-        self.one_hot_encoding(column, col_to_drop)
+        self.data = pd.get_dummies(self.data, columns = [column], prefix = column)
 
     def normalize(self, scaler):
         self.data = scaler.transform(self.data)
+
+    def ensure_same_columns(self, columns):
+        self.data = self.data.reindex(columns = columns, fill_value = 0)

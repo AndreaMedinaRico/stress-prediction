@@ -16,6 +16,7 @@ from classes.Transformation import Transformation
 # Initial imports
 model = load_model('models/model_baseline.keras')
 scaler = joblib.load('models/scaler.pkl')
+features = joblib.load('models/feature_cols.pkl')
 
 def get_user_input():
     user_data = {}
@@ -57,6 +58,10 @@ def preprocess_input(user_data):
         8: "Researcher"
     }
 
+    COLUMNS_ORDER = [
+
+    ]
+
     # One-hot encoding for occupation
     trans.one_hot_encoding_map('occupation', OCCUPATION_MAP, 'Designer')
 
@@ -66,6 +71,9 @@ def preprocess_input(user_data):
     'phone_usage_before_sleep_minutes': 'phone_usage_before_sleep_hours',
     'physical_activity_minutes': 'physical_activity_hours'
     })
+
+    # Ensure final dataframe has same columns as training data
+    trans.ensure_same_columns()
 
     # Normalize data
     trans.normalize(scaler)
