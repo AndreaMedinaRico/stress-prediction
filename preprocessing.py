@@ -4,8 +4,8 @@ Author: Andrea Medina
 Description: This file performs data preprocessing necessary to 
     prepare the data for being an input to the model.
 '''
-from Transformation import Transformation
-from Visualization import Visualization
+from classes.Transformation import Transformation
+from classes.Visualization import Visualization
 import pandas as pd
 
 # Console display adjustments

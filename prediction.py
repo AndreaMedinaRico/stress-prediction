@@ -8,12 +8,13 @@ Description: This is a user interface for the stress prediction model.
 
 import numpy as np
 import pandas as pd
-from tensorflow import keras
+import tensorflow as tf
+from tensorflow.keras.models import load_model
 import joblib
-from Transformation import Transformation
+from classes.Transformation import Transformation
 
 # Initial imports
-model = keras.models.load_model('models/model_baseline.keras')
+model = load_model('models/model_baseline.keras')
 scaler = joblib.load('models/scaler.pkl')
 
 def get_user_input():
