@@ -7,11 +7,14 @@ Description: This is a user interface for the stress prediction model.
 '''
 
 import numpy as np
+import pandas as pd
 from tensorflow import keras
+import joblib
 from Transformation import Transformation
 
+# Initial imports
 model = keras.models.load_model('model_baseline.keras')
-trans = Transformation()
+scaler = joblib.load('scaler.joblib')
 
 def get_user_input():
     user_data = {}
@@ -19,7 +22,7 @@ def get_user_input():
     print("Hi! Welcome to the stress level predictor. Please provide the following information:")
 
     user_data["age"] = int(input("Age: "))
-    user_data["gender"] = int(input("Assigned sex at birth:\n 1: Male\n 2: Female"))
+    user_data["gender"] = int(input("Assigned sex at birth:\n 0: Male\n 1: Female"))
     user_data["occupation"] = int(input("Occupation:\n 1: Designer\n 2: Teacher\n 3: Software Engineer\n 4: Manager\n" \
                                       "  5: Student\n 6: Freelancer\n 7: Doctor\n 8: Researcher\n"))
     
@@ -39,8 +42,32 @@ def get_user_input():
     return user_data
 
 def preprocess_input(user_data):
+    df = pd.DataFrame([user_data])
+    trans = Transformation(df)
+
+    OCCUPATION_MAP = {
+        1: "Designer",
+        2: "Teacher",
+        3: "Software Engineer",
+        4: "Manager",
+        5: "Student",
+        6: "Freelancer",
+        7: "Doctor",
+        8: "Researcher"
+    }
+
+    # One-hot encoding for occupation
+    trans.one_hot_encoding_map('occupation', OCCUPATION_MAP, 'Designer')
+
+    # Convert minuts to hours
     trans.minutes_to_hours(['phone_usage_before_sleep_minutes', 'physical_activity_minutes'])
     trans.rename_columns({
     'phone_usage_before_sleep_minutes': 'phone_usage_before_sleep_hours',
     'physical_activity_minutes': 'physical_activity_hours'
     })
+
+    # Normalize data
+    trans.normalize(scaler)
+
+    final_df = trans.data
+    return final_df
