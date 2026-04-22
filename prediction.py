@@ -14,7 +14,7 @@ import joblib
 from classes.Transformation import Transformation
 
 # Initial imports
-model = load_model('models/model_baseline.keras')
+model = load_model('models/model_improved.keras')
 scaler = joblib.load('models/scaler.pkl')
 features = joblib.load('models/feature_cols.pkl')
 
