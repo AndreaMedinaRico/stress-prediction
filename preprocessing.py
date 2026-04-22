@@ -32,19 +32,21 @@ trans.rename_columns({
 
 
 df = trans.data
+df.dropna(inplace = True)
 
 print("\nPreprocessed df:")
 print(df.head())
 print(df.info())
 
 # ---- Data Visualization ----
+'''
 vis = Visualization()
 vis.correlation_matrix(df)
 numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
 
 for col in numeric_cols:
     vis.histogram(df, col)
-
+'''
 
 # ---- Save clean data ----
 df.to_csv('data/clean_dataset.csv', index=False)
